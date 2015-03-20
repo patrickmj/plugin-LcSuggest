@@ -72,6 +72,7 @@ class LcSuggest_Controller_Plugin_Autosuggest extends Zend_Controller_Plugin_Abs
                     {
                         jQuery("textarea#Elements-<?php echo $element->id; ?>-0-text").val(ui.item.label);
                         
+                        //  distinguish between array of values vs key value pairs
                         if (ui.item.value != ui.item.label)
                         {
                             jQuery("#Elements-<?php echo $element->id; ?>-0-uri").val(ui.item.value);

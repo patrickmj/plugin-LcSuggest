@@ -33,6 +33,10 @@ class Table_LcSuggest extends Omeka_Db_Table
          'http://fillmylist.dev.bigblock.com.au/scot' => array(
              'name' => 'SCOT', 
              'url'  => 'http://fillmylist.dev.bigblock.com.au/', 
+         ),
+         'http://fillmylist.dev.bigblock.com.au/scot_lcsubj' => array(
+             'name' => 'SCOT + LC subject headings', 
+             'url'  => 'http://fillmylist.dev.bigblock.com.au/', 
          ), 
         
         'http://id.loc.gov/suggest' => array(
