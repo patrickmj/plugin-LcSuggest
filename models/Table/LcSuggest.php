@@ -29,6 +29,12 @@ class Table_LcSuggest extends Omeka_Db_Table
      * @see http://id.loc.gov/
      */
     private $_suggestEndpoints = array(
+        
+         'http://fillmylist.dev.bigblock.com.au/scot' => array(
+             'name' => 'SCOT', 
+             'url'  => 'http://fillmylist.dev.bigblock.com.au/', 
+         ), 
+        
         'http://id.loc.gov/suggest' => array(
             'name' => 'All Authorities and Vocabularies', 
             'url'  => 'http://id.loc.gov', 

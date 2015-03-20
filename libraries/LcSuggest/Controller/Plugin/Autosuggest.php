@@ -63,7 +63,25 @@ class LcSuggest_Controller_Plugin_Autosuggest extends Zend_Controller_Plugin_Abs
     jQuery(document).bind('omeka:elementformload', function(event) {
         jQuery('#element-<?php echo $element->id; ?> textarea').autocomplete({
             minLength: 2,
-            source: <?php echo json_encode($view->url('lc-suggest/index/suggest-endpoint-proxy/element-id/' . $element->id)); ?>
+            source: <?php echo json_encode($view->url('lc-suggest/index/suggest-endpoint-proxy/element-id/' . $element->id)); ?>,
+            select: function( event, ui ) {
+                if( ui.item )
+                {
+                    //  test for URI input available (from LinkedDataElements plugin)
+                    if (jQuery("#Elements-<?php echo $element->id; ?>-0-uri")[0] != undefined)
+                    {
+                        jQuery("textarea#Elements-<?php echo $element->id; ?>-0-text").val(ui.item.label);
+                        jQuery("#Elements-<?php echo $element->id; ?>-0-uri").val(ui.item.value);
+                        event.preventDefault();
+                    }
+                    else
+                    {
+                        jQuery("textarea#Elements-<?php echo $element->id; ?>-0-text").val(ui.item.label);
+                        event.preventDefault();
+                    }
+                }
+            }
+
         });
     });
 <?php
