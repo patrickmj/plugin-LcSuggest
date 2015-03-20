@@ -71,7 +71,11 @@ class LcSuggest_Controller_Plugin_Autosuggest extends Zend_Controller_Plugin_Abs
                     if (jQuery("#Elements-<?php echo $element->id; ?>-0-uri")[0] != undefined)
                     {
                         jQuery("textarea#Elements-<?php echo $element->id; ?>-0-text").val(ui.item.label);
-                        jQuery("#Elements-<?php echo $element->id; ?>-0-uri").val(ui.item.value);
+                        
+                        if (ui.item.value != ui.item.label)
+                        {
+                            jQuery("#Elements-<?php echo $element->id; ?>-0-uri").val(ui.item.value);
+                        }
                         event.preventDefault();
                     }
                     else
