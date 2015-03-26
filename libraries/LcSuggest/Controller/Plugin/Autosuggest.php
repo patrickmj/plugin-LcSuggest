@@ -67,21 +67,23 @@ class LcSuggest_Controller_Plugin_Autosuggest extends Zend_Controller_Plugin_Abs
             select: function( event, ui ) {
                 if( ui.item )
                 {
+                    sub_id = event.target.id.split('-')[2]  // determine sub id for multiple fields of same type
+                
                     //  test for URI input available (from LinkedDataElements plugin)
-                    if (jQuery("#Elements-<?php echo $element->id; ?>-0-uri")[0] != undefined)
+                    if (jQuery("#Elements-<?php echo $element->id; ?>-" + sub_id + "-uri")[0] != undefined)
                     {
-                        jQuery("textarea#Elements-<?php echo $element->id; ?>-0-text").val(ui.item.label);
+                        jQuery("textarea#Elements-<?php echo $element->id; ?>-" + sub_id + "-text").val(ui.item.label);
                         
                         //  distinguish between array of values vs key value pairs
                         if (ui.item.value != ui.item.label)
                         {
-                            jQuery("#Elements-<?php echo $element->id; ?>-0-uri").val(ui.item.value);
+                            jQuery("#Elements-<?php echo $element->id; ?>-" + sub_id + "-uri").val(ui.item.value);
                         }
                         event.preventDefault();
                     }
                     else
                     {
-                        jQuery("textarea#Elements-<?php echo $element->id; ?>-0-text").val(ui.item.label);
+                        jQuery("textarea#Elements-<?php echo $element->id; ?>-" + sub_id + "-text").val(ui.item.label);
                         event.preventDefault();
                     }
                 }
