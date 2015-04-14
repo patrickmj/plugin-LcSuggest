@@ -36,7 +36,8 @@ class Table_LcSuggest extends Omeka_Db_Table
          ),
          'http://fillmylist.dev.bigblock.com.au/scot_lcsubj' => array(
              'name' => 'SCOT + LC subject headings', 
-             'url'  => 'http://fillmylist.dev.bigblock.com.au/', 
+             'url'  => 'http://fillmylist.dev.bigblock.com.au/',
+             'multi' => true,
          ), 
         
         'http://id.loc.gov/suggest' => array(

@@ -91,14 +91,30 @@ class LcSuggest_IndexController extends Omeka_Controller_AbstractActionControlle
         // Get the suggest record.
         $elementId = $this->getRequest()->getParam('element-id');
         $lcSuggest = $this->_helper->db->getTable('LcSuggest')->findByElementId($elementId);
-        
+        $endpoints = $this->_helper->db->getTable('LcSuggest')->getSuggestEndpoints();
+                
         // Query the specified Library of Congress suggest endpoint, get the 
         // response, and output suggestions in JSON.
         $client = new Zend_Http_Client();
         $client->setUri($lcSuggest->suggest_endpoint);
         $client->setParameterGet('q', $this->getRequest()->getParam('term'));
-        $json = json_decode($client->request()->getBody());
-        $this->_helper->json($json[1]);
+        $json = json_decode($client->request()->getBody(), true);
+        
+        if (empty($endpoints[$lcSuggest->suggest_endpoint]['multi']))
+        {
+            //  handle a standard LC request
+            $this->_helper->json($json[1]);
+        }
+        else
+        {
+            //  we have a multi-source request, parse it in js
+//            echo $this->getRequest()->getParam('root'); 
+            
+            $this->_helper->json($json);
+        }
+
+        
+        
     }
     
     /**
