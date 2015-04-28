@@ -45,8 +45,6 @@ class LcSuggest_Controller_Plugin_Autosuggest extends Zend_Controller_Plugin_Abs
         $view = Zend_Registry::get('view');
         $view->headLink()->appendStylesheet('/plugins/LcSuggest/views/javascripts/treemenu/jquery.treeview.css');
         $view->headScript()->appendFile('/plugins/LcSuggest/views/javascripts/treemenu/jquery.treeview.min.js', $type='text/javascript');
-//        $view->headScript()->appendFile('/plugins/LcSuggest/views/javascripts/treemenu/jquery.treeview.async.js', $type='text/javascript');
-//        $view->headScript()->appendFile('/plugins/LcSuggest/views/javascripts/glue.js', $type='text/javascript');
         
         // Iterate the defined routes.
         foreach ($routes as $route) {
@@ -73,37 +71,36 @@ class LcSuggest_Controller_Plugin_Autosuggest extends Zend_Controller_Plugin_Abs
                     $view = Zend_Registry::get('view');
                     $view->headScript()->captureStart();
 
-?>
-jQuery.widget( "ui.autocomplete", jQuery.ui.autocomplete, {
-
-   _renderMenu: function( ul, items ) {
-        
-      }
-});
-
-function setElementContents(element_id, sub_id, label, value)
-{
-    // set contents of field
-    jQuery("#Elements-" + element_id + "-" + sub_id + "-text").val(label);
-    
-    // set URI contents if available
-    if (jQuery("#Elements-" + element_id + "-" + sub_id + "-uri")[0] != undefined)
-    {
-        // set contents of field
-        jQuery("#Elements-" + element_id + "-" + sub_id + "-uri").val(value);
-    }
-    
-    multidiv = jQuery("#Elements-" + element_id + "-" + sub_id + "-multidiv");
-    multidiv.hide();
-}
-
-<?php
                     if (!empty($endpoints[$endpoint]['multi']))
                     {
 ?>
+    function setElementContents(element_id, sub_id, label, value)
+    {
+        // set contents of field
+        jQuery("#Elements-" + element_id + "-" + sub_id + "-text").val(label);
+        
+        // set URI contents if available
+        if (jQuery("#Elements-" + element_id + "-" + sub_id + "-uri")[0] != undefined)
+        {
+            // set contents of field
+            jQuery("#Elements-" + element_id + "-" + sub_id + "-uri").val(value);
+        }
+        
+        multidiv = jQuery("#Elements-" + element_id + "-" + sub_id + "-multidiv");
+        multidiv.hide();
+    }
+
+    //  subclass our tree widget so it hides its native menu (we build our own)
+    jQuery.widget( "ui.autocompletetree", jQuery.ui.autocomplete, {
+    
+       _renderMenu: function( ul, items ) {
+            
+          }
+    });
+
     // Add autosuggest to <?php echo $elementSet->name . ':' . $element->name; ?>. Used by the LC Suggest plugin.
     jQuery(document).bind('omeka:elementformload', function(event) {
-        jQuery('#element-<?php echo $element->id; ?> textarea').autocomplete({
+        jQuery('#element-<?php echo $element->id; ?> textarea').autocompletetree({
             minLength: 2,
             source: <?php echo json_encode($view->url('lc-suggest/index/suggest-endpoint-proxy/element-id/' . $element->id)); ?>,
             select: function( event, ui ) {
