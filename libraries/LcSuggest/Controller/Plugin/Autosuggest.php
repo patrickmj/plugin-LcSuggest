@@ -71,6 +71,7 @@ class LcSuggest_Controller_Plugin_Autosuggest extends Zend_Controller_Plugin_Abs
                     $view = Zend_Registry::get('view');
                     $view->headScript()->captureStart();
 
+                    // generate a tree menu if appropriate
                     if (!empty($endpoints[$endpoint]['multi']))
                     {
 ?>
@@ -90,7 +91,7 @@ class LcSuggest_Controller_Plugin_Autosuggest extends Zend_Controller_Plugin_Abs
         multidiv.hide();
     }
 
-    //  subclass our tree widget so it hides its native menu (we build our own)
+    //  subclass our tree menu widget so it hides its native menu (we build our own)
     jQuery.widget( "ui.autocompletetree", jQuery.ui.autocomplete, {
     
        _renderMenu: function( ul, items ) {
@@ -104,7 +105,7 @@ class LcSuggest_Controller_Plugin_Autosuggest extends Zend_Controller_Plugin_Abs
             minLength: 2,
             source: <?php echo json_encode($view->url('lc-suggest/index/suggest-endpoint-proxy/element-id/' . $element->id)); ?>,
             select: function( event, ui ) {
-                if( ui.item && ui.item.value)
+                if (ui.item && ui.item.value)
                 {
                     sub_id = event.target.id.split('-')[2]  // determine sub id for multiple fields of same type
                 
@@ -118,14 +119,13 @@ class LcSuggest_Controller_Plugin_Autosuggest extends Zend_Controller_Plugin_Abs
                         {
                             jQuery("#Elements-<?php echo $element->id; ?>-" + sub_id + "-uri").val(ui.item.value);
                         }
-                        event.preventDefault();
                     }
                     else
                     {
                         if (ui.item.label)
                             jQuery("textarea#Elements-<?php echo $element->id; ?>-" + sub_id + "-text").val(ui.item.label);
-                        event.preventDefault();
                     }
+                    event.preventDefault();
                 }
             },
             open: function(event, ui) {
@@ -178,7 +178,7 @@ class LcSuggest_Controller_Plugin_Autosuggest extends Zend_Controller_Plugin_Abs
     
 <?php
                     }
-                    else
+                    else    // use the standard autocomplete 
                     {
 ?>
     // Add autosuggest to <?php echo $elementSet->name . ':' . $element->name; ?>. Used by the LC Suggest plugin.
@@ -210,7 +210,6 @@ class LcSuggest_Controller_Plugin_Autosuggest extends Zend_Controller_Plugin_Abs
                     }
                 }
             }
-
         });
     });
 <?php
