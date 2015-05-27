@@ -30,18 +30,18 @@ class Table_LcSuggest extends Omeka_Db_Table
      */
     private $_suggestEndpoints = array(
         
-         'http://fillmylist.dev.bigblock.com.au/scot' => array(
+         'http://fillmylist.itd.uts.edu.au/scot' => array(
              'name' => 'SCOT', 
-             'url'  => 'http://fillmylist.dev.bigblock.com.au/', 
+             'url'  => 'http://http://fillmylist.itd.uts.edu.au/', 
          ),
-         'http://fillmylist.dev.bigblock.com.au/scot_lcsubj' => array(
+         'http://fillmylist.itd.uts.edu.au/scot_lcsubj' => array(
              'name' => 'SCOT + LC subject headings', 
              'url'  => 'http://fillmylist.dev.bigblock.com.au/',
              'multi' => true,
          ),
-         'http://fillmylist.dev.bigblock.com.au/geonames' => array(
+         'http://fillmylist.itd.uts.edu.au/geonames' => array(
              'name' => 'Geonames Toponyms', 
-             'url'  => 'http://fillmylist.dev.bigblock.com.au/',
+             'url'  => 'http://fillmylist.itd.uts.edu.au/',
          ), 
         
         'http://id.loc.gov/suggest' => array(
