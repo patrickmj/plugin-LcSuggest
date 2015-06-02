@@ -34,6 +34,9 @@ class LcSuggest_Controller_Plugin_Autosuggest extends Zend_Controller_Plugin_Abs
         $routes = array(
             array('module' => 'default', 
                   'controller' => 'items', 
+                  'actions' => array('add', 'edit', 'element-form', 'change-type')),
+            array('module' => 'default', 
+                  'controller' => 'collections', 
                   'actions' => array('add', 'edit', 'element-form', 'change-type'))
         );
         
