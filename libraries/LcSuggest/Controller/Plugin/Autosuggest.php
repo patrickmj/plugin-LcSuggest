@@ -43,9 +43,9 @@ class LcSuggest_Controller_Plugin_Autosuggest extends Zend_Controller_Plugin_Abs
         
         // Add the autosuggest JavaScript to the JS queue.
         $view = Zend_Registry::get('view');
-        $view->headLink()->appendStylesheet('/plugins/LcSuggest/views/javascripts/treemenu/jquery.treeview.css');
-        $view->headScript()->appendFile('/plugins/LcSuggest/views/javascripts/treemenu/jquery.treeview.min.js', $type='text/javascript');
-        
+        $view->headLink()->appendStylesheet( WEB_PLUGIN . '/LcSuggest/views/javascripts/treemenu/jquery.treeview.css');
+        $view->headScript()->appendFile( WEB_PLUGIN . '/LcSuggest/views/javascripts/treemenu/jquery.treeview.min.js', $type='text/javascript');
+
         // Iterate the defined routes.
         foreach ($routes as $route) {
             
